@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        table{
+            border-collapse:collapse;
+            width:100%;
+        }
+        table, tr, td{
+            border:1px solid black;
+        }
+        input{
+            width:100%;
+            border:none;
+            background:#eee;
+        }
+    </style>
+</head>
+<body>
+{{ data.test }}
+<form method="post" action="index.html">
+
+
+</form>
+<table>
+    <tr>
+        <td>Status</td>
+        <td>{{ data.stromforbruk_i_prosent }}%</td>
+        <td>{{data.stromforbruk_i_kw}}Kw</td>
+    </tr>
+    {% for apparatet in data.apparater %}
+        <tr>
+            <td><input type="text" value="{{ apparatet.navn }}"></td>
+            <TD class = "select">
+                <select name="apparat_{{ apparatet.id }}_slaes_av_ved">
+                    {% for prosent in data.slaes_av_ved %}
+                        {% if apparatet.slaes_av_ved == prosent %}
+                            <option selected value="{{ prosent }}">{{ prosent }}%</option>
+                        {% else %}
+                            <option value="{{ prosent }}">{{ prosent }}%</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </td>
+            <TD >
+                <select name="apparat_{{ apparatet.id }}_status">
+                    {% for idk in data.status %}
+                        {% if apparatet.status == idk %}
+                            <option selected value="{{ idk }}">{{ idk }}</option>
+                        {% else %}
+                            <option value="{{ idk }}">{{ idk }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+    {%  endfor %}
+</table>
+</body>
+</html>
