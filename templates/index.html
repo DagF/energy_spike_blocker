@@ -17,44 +17,40 @@
     </style>
 </head>
 <body>
-{{ data.test }}
-<form method="post" action="index.html">
-
+<h1>Tittel</h1>
+<h2>Status: {{ stromforbruk_i_prosent }}% - {{stromforbruk_i_kw}}Kw</h2>
+<form method="post" action="/">
+    <table id="apparater">
+        <thead>
+        <tr>
+            <td>Navn</td>
+            <td>Beskrivelse</td>
+            <td>Slåes av ved prosent</td>
+            <td>Status</td>
+            <td>Slett</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for apparat in apparater %}
+            {% include 'apparat.html' %}
+        {%  endfor %}
+        </tbody>
+    </table>
+    <button type="button" onclick="leggTilApparat()">Legg til nytt apparat</button>
+    <input type="submit" value="Lagre">
 
 </form>
-<table>
-    <tr>
-        <td>Status</td>
-        <td>{{ data.stromforbruk_i_prosent }}%</td>
-        <td>{{data.stromforbruk_i_kw}}Kw</td>
-    </tr>
-    {% for apparatet in data.apparater %}
-        <tr>
-            <td><input type="text" value="{{ apparatet.navn }}"></td>
-            <TD class = "select">
-                <select name="apparat_{{ apparatet.id }}_slaes_av_ved">
-                    {% for prosent in data.slaes_av_ved %}
-                        {% if apparatet.slaes_av_ved == prosent %}
-                            <option selected value="{{ prosent }}">{{ prosent }}%</option>
-                        {% else %}
-                            <option value="{{ prosent }}">{{ prosent }}%</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-            </td>
-            <TD >
-                <select name="apparat_{{ apparatet.id }}_status">
-                    {% for idk in data.status %}
-                        {% if apparatet.status == idk %}
-                            <option selected value="{{ idk }}">{{ idk }}</option>
-                        {% else %}
-                            <option value="{{ idk }}">{{ idk }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-            </td>
-        </tr>
-    {%  endfor %}
-</table>
+
+<script>
+
+    function slettApparat(node){
+        node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+    }
+
+    function leggTilApparat(){
+        var template = document.querySelector("table tbody tr:last-child").cloneNode(true);
+        document.querySelector("table tbody").insertBefore(template, null);
+    }
+</script>
 </body>
 </html>

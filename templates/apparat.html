@@ -1,0 +1,29 @@
+<tr>
+    <td><input type="text" name="apparat_navn" value="{{ apparat.navn }}"></td>
+    <td><input type="text" name="apparat_beskrivelse" value="{{ apparat.beskrivelse }}"></td>
+    <td class = "select">
+        <select name="apparat_slaes_av_ved">
+            {% for prosent in prosenter %}
+                {% if apparat.slaes_av_ved == prosent %}
+                    <option selected value="{{ prosent }}">{{ prosent }}%</option>
+                {% else %}
+                    <option value="{{ prosent }}">{{ prosent }}%</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </td>
+    <td >
+        <select name="apparat_status">
+            {% for status in statuser %}
+                {% if apparat.status == status %}
+                    <option selected value="{{ status }}">{{ status }}</option>
+                {% else %}
+                    <option value="{{ status }}">{{ status }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </td>
+<td>
+    <button type="button" onclick="slettApparat(this)">Slett</button>
+</td>
+</tr>
