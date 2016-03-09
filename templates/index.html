@@ -18,16 +18,15 @@
 </head>
 <body>
 <h1>Tittel</h1>
-<h2>Status: {{ stromforbruk_i_prosent }}% - {{stromforbruk_i_kw}}Kw</h2>
+<h2>Status: {{status}}% - {{forbruk}}Kw</h2>
 <form method="post" action="/">
     <table id="apparater">
         <thead>
         <tr>
-            <td>Navn</td>
+            <td>Enhet</td>
             <td>Beskrivelse</td>
-            <td>Slåes av ved prosent</td>
-            <td>Status</td>
-            <td>Slett</td>
+            <td>Trigger</td>
+            <td>Modus</td>
         </tr>
         </thead>
         <tbody>
@@ -36,21 +35,9 @@
         {%  endfor %}
         </tbody>
     </table>
-    <button type="button" onclick="leggTilApparat()">Legg til nytt apparat</button>
     <input type="submit" value="Lagre">
 
 </form>
 
-<script>
-
-    function slettApparat(node){
-        node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
-    }
-
-    function leggTilApparat(){
-        var template = document.querySelector("table tbody tr:last-child").cloneNode(true);
-        document.querySelector("table tbody").insertBefore(template, null);
-    }
-</script>
 </body>
 </html>
